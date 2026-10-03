@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="midnight-violet">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alnprix Ai — Restaurant</title>
+<meta name="description" content="Alnprix Ai — built around reservations, menus, and daily service." />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style data-file="styles.css">
+:root{--bg:#0b0b14;--surface:#15151f;--ink:#f5f5fa;--muted:#a3a3b8;--brand:#8b5cf6;--brand-2:#22d3ee;--ring:rgba(139,92,246,.3);--border:rgba(255,255,255,.08);--radius:10px;--shadow:0 24px 60px rgba(0,0,0,.45)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans", system-ui, sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:"Space Grotesk", sans-serif;font-weight:600;letter-spacing:-.02em;line-height:1.05;margin:0}
+h1{font-size:clamp(2.5rem,5.5vw,4.5rem)}h2{font-size:clamp(2rem,4vw,3.25rem);margin-bottom:1rem}h3{font-size:1.25rem;margin-bottom:.5rem}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);margin:0 0 .75rem}
+.lead{font-size:1.125rem;color:var(--muted);max-width:60ch}
+.muted{color:var(--muted)}.hidden{display:none!important}
+.site-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:1rem 1.25rem;display:flex;align-items:center;gap:1.25rem}
+.brand{font-family:"Space Grotesk", sans-serif;font-size:1.4rem;font-weight:700}
+.nav-links{display:none;gap:1.25rem;font-weight:500;font-size:.95rem;margin-left:1.5rem}
+.nav-links a[aria-current=page]{color:var(--brand)}
+.nav-cta{margin-left:auto;display:flex;align-items:center;gap:.6rem}
+.menu-btn{display:inline-flex;border:1px solid var(--border);background:var(--surface);color:var(--ink);border-radius:8px;padding:.5rem .75rem;font-weight:600;font-size:.85rem;cursor:pointer}
+.mobile-menu{border-top:1px solid var(--border);padding:.5rem 1.25rem;background:var(--surface)}
+@media(min-width:768px){.nav-links{display:flex}.menu-btn{display:none}.mobile-menu{display:none!important}}
+.btn-primary,.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:.75rem 1.1rem;border-radius:calc(var(--radius) - 2px);font-weight:600;font-size:.95rem;cursor:pointer;transition:transform .15s,box-shadow .15s,opacity .15s;border:1px solid transparent}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 20px var(--ring)}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-secondary{background:var(--surface);border-color:var(--border);color:var(--ink)}
+.btn-secondary:hover{border-color:var(--ink)}
+.btn-sm{min-height:36px;padding:.45rem .9rem;font-size:.85rem}
+.btn-block{width:100%}
+.page-section{min-height:60vh}
+.section-wrap{max-width:1120px;margin:0 auto;padding:5rem 1.25rem}
+.section-wrap.narrow{max-width:760px}
+.hero{max-width:1200px;margin:0 auto;padding:5rem 1.25rem;display:grid;gap:3rem;align-items:center}
+@media(min-width:980px){.hero{grid-template-columns:1.05fr .95fr;padding:6.5rem 1.25rem}}
+.hero-image{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow)}
+.cta-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+.trust{margin-top:1.5rem;font-size:.9rem;color:var(--muted)}.trust span{margin-left:.5rem}
+.logo-strip{max-width:1200px;margin:0 auto;padding:0 1.25rem 4rem;display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;color:var(--muted);font-size:.85rem;letter-spacing:.05em;text-transform:uppercase}
+.logo-strip b{color:var(--ink);font-weight:700;opacity:.7;font-size:1rem;letter-spacing:.02em;text-transform:none}
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:2rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow)}
+.card h3{margin-bottom:.4rem}.card p{color:var(--muted);margin:0}
+.feature{padding:1.75rem}.feature-icon{font-size:1.6rem;margin-bottom:1rem}
+.post:hover{border-color:var(--brand)}
+.pricing-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:1rem}
+.price-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow);position:relative}
+.price-card.featured{border-color:var(--brand);box-shadow:0 24px 60px var(--ring)}
+.price-card .badge{position:absolute;top:-12px;right:1.25rem;background:var(--brand);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.3rem .65rem;border-radius:999px;margin:0}
+.tagline{color:var(--muted);font-size:.9rem;margin:.25rem 0 1rem}
+.price{font-family:"Space Grotesk", sans-serif;font-size:2.75rem;font-weight:700;margin:0 0 1rem;color:var(--ink)}
+.price .cadence{font-size:1rem;color:var(--muted);font-family:"DM Sans", system-ui, sans-serif;font-weight:400}
+.perks{list-style:none;padding:0;margin:0 0 1.5rem;display:grid;gap:.45rem;font-size:.92rem}
+.perks li{padding-left:1.4rem;position:relative;color:var(--muted)}
+.perks li:before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:700}
+.fine{font-size:.78rem;color:var(--muted)}.fine.center{text-align:center;margin-top:1.5rem}
+.checkout-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow);display:grid;gap:1.25rem;margin-top:1rem}
+.order{display:grid;gap:.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
+.order .row{display:flex;justify-content:space-between;font-size:.95rem;color:var(--muted)}
+.order .row strong{color:var(--ink);font-weight:600}
+.order .total{font-size:1.05rem}.order .total strong{font-size:1.25rem;font-family:"Space Grotesk", sans-serif}
+.notice{padding:.85rem 1rem;border-radius:calc(var(--radius) - 4px);font-size:.9rem;border:1px solid var(--border);background:var(--surface)}
+.notice.warn{border-color:#f59e0b;background:rgba(245,158,11,.08)}
+.notice.err{border-color:#ef4444;background:rgba(239,68,68,.08)}
+.notice.ok{border-color:#10b981;background:rgba(16,185,129,.08)}
+.check{display:flex;align-items:flex-start;gap:.6rem;font-size:.92rem;color:var(--muted);line-height:1.5;cursor:pointer}
+.check input{margin-top:.25rem;width:1.05rem;height:1.05rem;accent-color:var(--brand)}
+.check a{color:var(--brand)}
+.auth-form{display:grid;gap:1rem;margin-top:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;box-shadow:var(--shadow)}
+.auth-form label{display:grid;gap:.4rem;font-size:.85rem;font-weight:600;color:var(--muted)}
+.auth-form input,.auth-form textarea,.auth-form select{font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--border);border-radius:calc(var(--radius) - 4px);padding:.75rem .9rem;outline:none;transition:border-color .15s,box-shadow .15s}
+.auth-form input:focus,.auth-form textarea:focus{border-color:var(--brand);box-shadow:0 0 0 4px var(--ring)}
+.dashboard{display:grid;grid-template-columns:1fr;gap:0;max-width:1280px;margin:0 auto;padding:2rem 1.25rem;min-height:80vh}
+@media(min-width:980px){.dashboard{grid-template-columns:240px 1fr;gap:2rem;padding:2.5rem 1.5rem}}
+.d-sidebar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;height:fit-content;display:grid;gap:1.5rem}
+.d-brand{font-family:"Space Grotesk", sans-serif;font-size:1.2rem;font-weight:700;margin:0}
+.d-sidebar nav{display:grid;gap:.15rem}
+.d-sidebar nav a{padding:.55rem .75rem;border-radius:8px;font-size:.92rem;font-weight:500;color:var(--muted)}
+.d-sidebar nav a:hover{background:var(--bg);color:var(--ink)}
+.d-sidebar nav a.d-active{background:var(--bg);color:var(--ink);font-weight:600}
+.d-plan{font-size:.8rem;color:var(--muted)}.d-plan p{margin:0 0 .4rem;font-weight:600;color:var(--ink)}
+.bar{height:6px;background:var(--bg);border-radius:999px;overflow:hidden;border:1px solid var(--border)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));border-radius:inherit}
+.d-plan span{display:block;margin-top:.35rem}
+.d-main{display:grid;gap:1.5rem;min-width:0}
+.d-header{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1rem}
+.d-title{font-family:"Space Grotesk", sans-serif;font-size:2rem;margin:0}
+.d-actions{display:flex;gap:.5rem}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;box-shadow:var(--shadow)}
+.kpi-label{margin:0;font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.kpi-value{display:block;font-family:"Space Grotesk", sans-serif;font-size:1.85rem;font-weight:700;margin:.4rem 0 .2rem}
+.kpi-delta{font-size:.8rem;color:var(--brand);font-weight:600}
+.d-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:1024px){.d-grid{grid-template-columns:2fr 1fr}}
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;gap:.75rem;flex-wrap:wrap}
+.chart-card svg{width:100%;height:auto;display:block}
+.gauges{display:grid;gap:1rem}
+.gauge p{margin:0 0 .35rem;font-size:.85rem;color:var(--ink);font-weight:600}
+.gauge span{display:block;margin-top:.3rem;font-size:.78rem;color:var(--muted)}
+.table-card .filters{display:flex;gap:.5rem}
+.table-card input,.table-card select{font:inherit;background:var(--bg);border:1px solid var(--border);color:var(--ink);border-radius:8px;padding:.4rem .6rem;font-size:.85rem}
+.t-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:calc(var(--radius) - 4px)}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:520px}
+th,td{padding:.85rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;background:var(--bg)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg)}
+.recent-list{list-style:none;padding:0;margin:0;display:grid;gap:.5rem;font-size:.9rem}
+.recent-list li{padding:.5rem .65rem;border:1px solid var(--border);border-radius:8px;background:var(--bg)}
+details{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin:.6rem 0}
+summary{font-weight:600;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] summary{margin-bottom:.6rem;color:var(--brand)}
+.site-footer{border-top:1px solid var(--border);background:var(--surface);margin-top:4rem;padding:3rem 1.25rem 2rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:grid;gap:2.5rem;grid-template-columns:1fr;align-items:start}
+@media(min-width:780px){.footer-inner{grid-template-columns:1.2fr 2fr}}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;font-size:.9rem}
+.footer-cols div{display:grid;gap:.4rem}
+.footer-cols b{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600}
+.footer-cols a{color:var(--ink)}.footer-cols a:hover{color:var(--brand)}
+.copyright{max-width:1200px;margin:2.5rem auto 0;font-size:.8rem;color:var(--muted);text-align:center}
+
+</style>
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a class="brand" href="#/home">Alnprix Ai</a>
+    <button id="menu-toggle" class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+    <div class="nav-links"><a href="#/home" data-nav>Home</a><a href="#/features" data-nav>Features</a><a href="#/pricing" data-nav>Pricing</a><a href="#/dashboard" data-nav>Dashboard</a><a href="#/blog" data-nav>Blog</a><a href="#/contact" data-nav>Contact</a></div>
+    <div class="nav-cta">
+      <a href="#/signin" data-auth-only="anon">Sign in</a>
+      <a href="#/signup" data-auth-only="anon" class="btn-primary btn-sm">Get started</a>
+      <a href="#/dashboard" data-auth-only="user" class="btn-primary btn-sm">Dashboard</a>
+      <button type="button" id="signout-btn" data-auth-only="user" class="btn-secondary btn-sm">Sign out</button>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="mobile-menu hidden"><a class="block py-3" href="#/home" data-nav>Home</a><a class="block py-3" href="#/features" data-nav>Features</a><a class="block py-3" href="#/pricing" data-nav>Pricing</a><a class="block py-3" href="#/dashboard" data-nav>Dashboard</a><a class="block py-3" href="#/blog" data-nav>Blog</a><a class="block py-3" href="#/contact" data-nav>Contact</a><a class="block py-3" href="#/signin" data-auth-only="anon">Sign in</a><a class="block py-3" href="#/signup" data-auth-only="anon">Sign up</a><a class="block py-3" href="#/dashboard" data-auth-only="user">Dashboard</a></div>
+</header>
+<main>
+<section data-page="home" data-title="Alnprix Ai — Home" class="page-section">
+  <div class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Restaurant · production-ready</p>
+      <h1>Alnprix Ai — a warm table, a sharper kitchen, every night.</h1>
+      <p class="lead">A complete restaurant site for guests and local regulars — 14 wired pages, real sign-in, checkout with conditions, and a working operator dashboard.</p>
+      <div class="cta-row"><a class="btn-primary" href="#/pricing">See pricing</a><a class="btn-secondary" href="#/dashboard">Open dashboard</a></div>
+      <div class="trust">★★★★★ <span>trusted by guests and local regulars worldwide</span></div>
+    </div>
+    <img onerror="this.onerror=null;this.src='https://picsum.photos/seed/'+Math.random().toString(36).slice(2)+'/980/735';" class="hero-image" src="https://picsum.photos/seed/alnprix-ai-hero/980/735" width="980" height="735" loading="lazy" decoding="async" alt="Alnprix Ai visual preview" />
+  </div>
+  <div class="logo-strip"><span>As featured in</span><b>The Daily</b><b>Operators</b><b>Pulse</b><b>Foundry</b><b>Edge</b></div>
+</section>
+
+<section data-page="features" data-title="Alnprix Ai — Features" class="page-section hidden"><div class="section-wrap"><p class="eyebrow">What's inside</p><h2>Everything needed for reservations, menus, and daily service.</h2><div class="grid-cards"><article class="card feature"><div class="feature-icon" aria-hidden="true">📅</div><h3>Reservations that don&#39;t no-show</h3><p>Confirmations, reminders, deposits.</p></article><article class="card feature"><div class="feature-icon" aria-hidden="true">🍽️</div><h3>Menus you can edit in seconds</h3><p>Allergens, prices, daily specials.</p></article><article class="card feature"><div class="feature-icon" aria-hidden="true">📈</div><h3>House metrics, in one view</h3><p>Covers, average ticket, waitlist.</p></article></div></div></section>
+
+<section data-page="pricing" data-title="Alnprix Ai — Pricing" class="page-section hidden"><div class="section-wrap"><div class="pricing-head"><div><p class="eyebrow">Pricing</p><h2>Simple plans. No surprises.</h2></div><div><button id="billing-toggle" class="btn-secondary" type="button">Show yearly (save 20%)</button></div></div><div class="grid-cards pricing-grid"><article class="price-card"><h3>Starter</h3><p class="tagline">For getting started</p><p class="price" data-month="19" data-year="15">19 €<span class="cadence"> / mo</span></p><ul class="perks"><li>Up to 3 projects</li><li>Email support</li><li>Basic analytics</li></ul><button class="pb-checkout btn-primary" type="button" data-amount="19" data-currency="eur" data-description="Starter monthly" data-plan="starter-monthly" data-requires-auth="1">Choose Starter</button><p class="fine">Cancel anytime · VAT shown at checkout</p></article><article class="price-card featured"><p class="badge">Most popular</p><h3>Pro</h3><p class="tagline">Most teams pick this</p><p class="price" data-month="49" data-year="39">49 €<span class="cadence"> / mo</span></p><ul class="perks"><li>Unlimited projects</li><li>Priority support</li><li>Advanced analytics</li><li>Team seats</li></ul><button class="pb-checkout btn-primary" type="button" data-amount="49" data-currency="eur" data-description="Pro monthly" data-plan="pro-monthly" data-requires-auth="1">Choose Pro</button><p class="fine">Cancel anytime · VAT shown at checkout</p></article><article class="price-card"><h3>Business</h3><p class="tagline">For scaling operations</p><p class="price" data-month="99" data-year="79">99 €<span class="cadence"> / mo</span></p><ul class="perks"><li>Everything in Pro</li><li>Dedicated success manager</li><li>Custom integrations</li><li>SLA &amp; audit logs</li></ul><button class="pb-checkout btn-primary" type="button" data-amount="99" data-currency="eur" data-description="Business monthly" data-plan="business-monthly" data-requires-auth="1">Choose Business</button><p class="fine">Cancel anytime · VAT shown at checkout</p></article></div><p class="fine center">All plans require sign-up · Prices exclude VAT · 14-day money-back guarantee</p></div></section>
+
+<section data-page="checkout" data-title="Alnprix Ai — Checkout" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">Checkout</p><h2>Almost there.</h2><div class="checkout-card"><div class="order"><div class="row"><span>Plan</span><strong>Pro monthly</strong></div><div class="row"><span>Subtotal</span><strong>49.00 €</strong></div><div class="row"><span>VAT (20%)</span><strong>9.80 €</strong></div><div class="row total"><span>Total today</span><strong>58.80 €</strong></div></div><div id="auth-required-notice" class="notice warn hidden">You need an account to continue. <a href="#/signin?next=/checkout">Sign in</a> or <a href="#/signup?next=/checkout">create one</a>.</div><label class="check"><input type="checkbox" id="terms-accept" /> I accept the <a href="#/terms">Terms</a> and <a href="#/privacy">Privacy Policy</a>.</label><label class="check"><input type="checkbox" id="age-confirm" /> I confirm I am at least 18 years old and authorised to make this purchase.</label><button id="checkout-submit" class="pb-checkout btn-primary btn-block" type="button" disabled data-amount="49" data-currency="eur" data-description="Pro monthly" data-plan="pro-monthly" data-requires-auth="1">Continue securely</button><p class="fine center">Payments processed by PayBridge · 3D Secure · refundable within 14 days</p></div></div></section>
+
+<section data-page="signin" data-title="Alnprix Ai — Sign in" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">Welcome back</p><h2>Sign in to Alnprix Ai</h2><form id="signin-form" class="auth-form" novalidate><label>Email<input type="email" name="email" autocomplete="email" required /></label><label>Password<input type="password" name="password" autocomplete="current-password" minlength="6" required /></label><div id="signin-error" class="notice err hidden"></div><button class="btn-primary btn-block" type="submit">Sign in</button><p class="fine center">No account? <a href="#/signup">Create one</a></p></form></div></section>
+
+<section data-page="signup" data-title="Alnprix Ai — Sign up" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">Get started — free</p><h2>Create your Alnprix Ai account</h2><form id="signup-form" class="auth-form" novalidate><label>Full name<input type="text" name="name" autocomplete="name" required /></label><label>Email<input type="email" name="email" autocomplete="email" required /></label><label>Password<input type="password" name="password" autocomplete="new-password" minlength="6" required /></label><label class="check"><input type="checkbox" name="terms" required /> I accept the <a href="#/terms">Terms</a> and <a href="#/privacy">Privacy Policy</a>.</label><div id="signup-error" class="notice err hidden"></div><button class="btn-primary btn-block" type="submit">Create account</button><p class="fine center">Already have an account? <a href="#/signin">Sign in</a></p></form></div></section>
+
+<section data-page="dashboard" data-title="Alnprix Ai — Dashboard" class="page-section hidden"><div class="dashboard"><aside class="d-sidebar"><p class="d-brand">Alnprix Ai</p><nav><a href="#/dashboard" class="d-active">Overview</a><a href="#/dashboard/customers">Customers</a><a href="#/dashboard/billing">Billing</a><a href="#/dashboard/settings">Settings</a></nav><div class="d-plan"><p id="d-plan-name">Free plan</p><div class="bar"><i id="d-plan-bar" style="width:0%"></i></div><span id="d-plan-hint">Loading usage…</span></div></aside><div class="d-main"><header class="d-header"><div><p class="eyebrow">Operator dashboard</p><h2 class="d-title">Welcome back, <span id="d-user">operator</span></h2></div><div class="d-actions"><button class="btn-secondary btn-sm" id="d-export">Export CSV</button><a class="btn-primary btn-sm" href="#/dashboard/customers">New entry</a></div></header><div class="kpi-grid" id="d-kpis"><article class="kpi"><p class="kpi-label">Time</p><strong class="kpi-value" data-kpi="count">0</strong><span class="kpi-delta" data-kpi="delta">—</span></article><article class="kpi"><p class="kpi-label">Active</p><strong class="kpi-value" data-kpi="active">0</strong><span class="kpi-delta">live</span></article><article class="kpi"><p class="kpi-label">Added (7d)</p><strong class="kpi-value" data-kpi="week">0</strong><span class="kpi-delta">past week</span></article><article class="kpi"><p class="kpi-label">Account age</p><strong class="kpi-value" data-kpi="age">—</strong><span class="kpi-delta">since signup</span></article></div><div class="d-grid"><article class="card chart-card"><div class="card-head"><h3>Activity (last 30 days)</h3><span class="muted" id="d-trend-meta">—</span></div><svg id="d-chart" viewBox="0 0 600 200" role="img" aria-label="Activity"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="var(--brand)" stop-opacity=".35"/><stop offset="100%" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs><path id="d-chart-area" d="" fill="url(#g)"/><path id="d-chart-line" d="" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linecap="round"/></svg></article><article class="card"><div class="card-head"><h3>Recent</h3><a class="muted" href="#/dashboard/customers">View all</a></div><ul id="d-recent" class="recent-list"><li class="muted">No entries yet.</li></ul></article></div><article class="card table-card"><div class="card-head"><h3>Tonight&#39;s reservations</h3><div class="filters"><input type="search" id="d-search" placeholder="Search…" /></div></div><div class="t-wrap"><table><thead><tr><th>Time</th><th>Guest</th><th>Party</th><th>Table</th><th>Status</th><th></th></tr></thead><tbody id="d-overview-rows"><tr><td colspan="6" class="muted">Loading…</td></tr></tbody></table></div></article></div></div></section>
+
+<section data-page="dashboard/customers" data-title="Alnprix Ai — Customers" class="page-section hidden"><div class="dashboard"><aside class="d-sidebar"><p class="d-brand">Alnprix Ai</p><nav><a href="#/dashboard">Overview</a><a href="#/dashboard/customers" class="d-active">Customers</a><a href="#/dashboard/billing">Billing</a><a href="#/dashboard/settings">Settings</a></nav></aside><div class="d-main"><header class="d-header"><div><h2 class="d-title">Tonight&#39;s reservations</h2><p class="muted"><span id="d-count">0</span> total</p></div></header><article class="card"><h3>Add new</h3><form id="d-entry-form" class="auth-form"><label>Name<input type="text" name="name" required /></label><label>Email<input type="email" name="email" /></label><label>Notes<input type="text" name="notes" /></label><div id="d-entry-error" class="notice err hidden"></div><button class="btn-primary btn-sm" type="submit">Save entry</button></form></article><article class="card table-card"><div class="card-head"><h3>All entries</h3><div class="filters"><input type="search" id="d-list-search" placeholder="Search…" /></div></div><div class="t-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Notes</th><th>Status</th><th>Created</th><th></th></tr></thead><tbody id="d-entry-rows"><tr><td colspan="6" class="muted">Loading…</td></tr></tbody></table></div></article></div></div></section>
+
+<section data-page="dashboard/billing" data-title="Alnprix Ai — Billing" class="page-section hidden"><div class="dashboard"><aside class="d-sidebar"><p class="d-brand">Alnprix Ai</p><nav><a href="#/dashboard">Overview</a><a href="#/dashboard/customers">Customers</a><a href="#/dashboard/billing" class="d-active">Billing</a><a href="#/dashboard/settings">Settings</a></nav></aside><div class="d-main"><h2 class="d-title">Billing</h2><div class="d-grid"><article class="card"><h3>Current plan</h3><p class="muted" id="b-plan">Free plan · no active subscription</p><a class="btn-primary btn-sm" href="#/pricing">Choose a plan</a></article><article class="card"><h3>Account</h3><p class="muted">Signed in as <strong id="b-email">—</strong></p><p class="muted">Member since <span id="b-since">—</span></p></article></div><article class="card table-card"><h3>Checkout history</h3><div class="t-wrap"><table><thead><tr><th>Reference</th><th>Date</th><th>Plan</th><th>Status</th></tr></thead><tbody id="b-history"><tr><td colspan="4" class="muted">No checkouts yet. Pick a plan on the <a href="#/pricing">pricing</a> page to begin.</td></tr></tbody></table></div></article></div></div></section>
+
+<section data-page="dashboard/settings" data-title="Alnprix Ai — Settings" class="page-section hidden"><div class="dashboard"><aside class="d-sidebar"><p class="d-brand">Alnprix Ai</p><nav><a href="#/dashboard">Overview</a><a href="#/dashboard/customers">Customers</a><a href="#/dashboard/billing">Billing</a><a href="#/dashboard/settings" class="d-active">Settings</a></nav></aside><div class="d-main"><h2 class="d-title">Settings</h2><article class="card"><h3>Profile</h3><form id="d-profile-form" class="auth-form"><label>Display name<input type="text" name="display_name" id="settings-name" /></label><label>Email<input type="email" id="settings-email" disabled /></label><div id="d-profile-status" class="notice ok hidden">Saved.</div><button class="btn-primary btn-sm" type="submit">Save</button></form></article><article class="card"><h3>Sign out</h3><p class="muted">End your session on this device.</p><button class="btn-secondary btn-sm" type="button" id="d-signout">Sign out</button></article></div></div></section>
+
+<section data-page="about" data-title="Alnprix Ai — About" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">About</p><h2>Built for guests and local regulars.</h2><p class="lead">Alnprix Ai combines a clear story, a real operator surface, and a checkout that actually converts. Generated in seconds, ready to refine in chat.</p></div></section>
+
+<section data-page="blog" data-title="Alnprix Ai — Blog" class="page-section hidden"><div class="section-wrap"><p class="eyebrow">Blog</p><h2>Field notes</h2><div class="grid-cards"><a class="card post" href="#/blog/post-1"><h3>How restaurant teams launch faster</h3><p>From idea to live operating surface in one afternoon.</p></a><a class="card post" href="#/blog/post-2"><h3>The operator checklist</h3><p>Every launch needs navigation, pricing, support, billing.</p></a><a class="card post" href="#/blog/post-3"><h3>Measuring what matters</h3><p>Pick three numbers that move the business.</p></a></div></div></section>
+<section data-page="blog/post-1" data-title="Alnprix Ai — Launch faster" class="page-section hidden"><div class="section-wrap narrow"><h2>How restaurant teams launch faster</h2><p>A focused website turns a rough idea into a usable operating surface.</p></div></section>
+<section data-page="blog/post-2" data-title="Alnprix Ai — Checklist" class="page-section hidden"><div class="section-wrap narrow"><h2>The operator checklist</h2><p>Navigation, conversion, support, billing, accounting, reconciliation.</p></div></section>
+<section data-page="blog/post-3" data-title="Alnprix Ai — Metrics" class="page-section hidden"><div class="section-wrap narrow"><h2>Measuring what matters</h2><p>Leads, conversion, revenue, churn — all in one story.</p></div></section>
+
+<section data-page="faq" data-title="Alnprix Ai — FAQ" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">FAQ</p><h2>Questions, answered.</h2><details open><summary>Is this production-ready?</summary><p>Yes — sign-in, sign-up, gated dashboard, checkout with conditions, billing, and content all wired end-to-end.</p></details><details><summary>Does checkout work?</summary><p>The buttons call your configured PayBridge endpoint after T&amp;C and age confirmation.</p></details><details><summary>Where do accounts live?</summary><p>On the secure cloud backend powering the generator. Move them to your own backend any time.</p></details></div></section>
+
+<section data-page="contact" data-title="Alnprix Ai — Contact" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">Contact</p><h2>Say hello.</h2><form class="auth-form" id="contact-form" novalidate><label>Your name<input type="text" name="name" required /></label><label>Email<input type="email" name="email" required /></label><label>Message<textarea name="message" rows="5" required></textarea></label><div id="contact-status" class="notice ok hidden">Thanks — we'll be in touch.</div><button class="btn-primary" type="submit">Send message</button></form></div></section>
+
+<section data-page="privacy" data-title="Alnprix Ai — Privacy" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">Legal</p><h2>Privacy Policy</h2><p>Alnprix Ai collects only the information needed to operate the service, answer requests, and process payments securely.</p></div></section>
+
+<section data-page="terms" data-title="Alnprix Ai — Terms" class="page-section hidden"><div class="section-wrap narrow"><p class="eyebrow">Legal</p><h2>Terms of Service</h2><p>Use of Alnprix Ai is governed by fair use, accurate billing information, and respectful customer conduct.</p></div></section>
+</main>
+
+<footer class="site-footer"><div class="footer-inner"><div><p class="brand">Alnprix Ai</p><p class="muted">Alnprix Ai — a warm table, a sharper kitchen, every night.</p></div><div class="footer-cols"><div><b>Product</b><a href="#/features">Features</a><a href="#/pricing">Pricing</a><a href="#/dashboard">Dashboard</a></div><div><b>Company</b><a href="#/about">About</a><a href="#/blog">Blog</a><a href="#/contact">Contact</a></div><div><b>Legal</b><a href="#/privacy">Privacy</a><a href="#/terms">Terms</a><a href="#/faq">FAQ</a></div></div></div><p class="copyright">© 2026 Alnprix Ai · built with AIbuilder</p></footer>
+
+<script>window.__AIB_AUTH__ = {"supabaseUrl":"https://znhefexjimilazcsibdi.supabase.co","supabaseAnonKey":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpuaGVmZXhqaW1pbGF6Y3NpYmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4NTMxNzAsImV4cCI6MjA5MzQyOTE3MH0.wTzt3T8OenIgLZHQ9vxBG7jW9giShVVjoSxyiS_Mxiw","namespace":"alnprix-ai","brand":"Alnprix Ai"};</script>
+<script data-file="auth.js">
+(function(){
+  var cfg = window.__AIB_AUTH__ || {};
+  var KEY = 'aib_session_' + (cfg.namespace || 'site');
+  function read(){ try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){ return null; } }
+  function write(v){ if(v) localStorage.setItem(KEY, JSON.stringify(v)); else localStorage.removeItem(KEY); document.dispatchEvent(new CustomEvent('aib-auth-change')); render(); }
+  function user(){ var s = read(); return s && s.user ? s.user : null; }
+  function headers(){ var s = read(); var h = { 'Content-Type':'application/json', 'apikey': cfg.supabaseAnonKey || '' }; if(s && s.access_token){ h.Authorization = 'Bearer ' + s.access_token; } return h; }
+  async function call(path, body){
+    if(!cfg.supabaseUrl || !cfg.supabaseAnonKey){ throw new Error('Auth backend not configured'); }
+    var res = await fetch(cfg.supabaseUrl + path, { method:'POST', headers: headers(), body: JSON.stringify(body) });
+    var j = await res.json().catch(function(){ return {}; });
+    if(!res.ok){ throw new Error(j.error_description || j.msg || j.message || ('Request failed (' + res.status + ')')); }
+    return j;
+  }
+  async function signin(email, password){
+    var j = await call('/auth/v1/token?grant_type=password', { email: email, password: password });
+    write({ access_token: j.access_token, refresh_token: j.refresh_token, user: { id: j.user && j.user.id, email: j.user && j.user.email } });
+    return j;
+  }
+  async function signup(email, password, name){
+    var j = await call('/auth/v1/signup', { email: email, password: password, data: { full_name: name } });
+    if(j.access_token){ write({ access_token: j.access_token, refresh_token: j.refresh_token, user: { id: j.user && j.user.id, email: j.user && j.user.email } }); }
+    else { write({ user: { id: (j.user && j.user.id) || j.id, email: email } }); }
+    return j;
+  }
+  function signout(){ write(null); location.hash = '#/home'; }
+  function nextFromHash(){ var h = (location.hash || '').split('?')[1] || ''; var m = h.match(/(?:^|&)next=([^&]+)/); return m ? decodeURIComponent(m[1]) : null; }
+  function render(){
+    var u = user();
+    document.querySelectorAll('[data-auth-only=user]').forEach(function(el){ el.style.display = u ? '' : 'none'; });
+    document.querySelectorAll('[data-auth-only=anon]').forEach(function(el){ el.style.display = u ? 'none' : ''; });
+    var label = document.getElementById('d-user'); if(label) label.textContent = u ? (u.email || 'operator') : 'operator';
+    var se = document.getElementById('settings-email'); if(se && !se.value && u) se.value = u.email || '';
+  }
+  function bindForms(){
+    var s1 = document.getElementById('signin-form');
+    var s2 = document.getElementById('signup-form');
+    var so = document.getElementById('signout-btn');
+    if(s1 && !s1.dataset.bound){ s1.dataset.bound='1'; s1.addEventListener('submit', async function(e){
+      e.preventDefault(); var err = document.getElementById('signin-error'); if(err) err.classList.add('hidden');
+      var fd = new FormData(s1);
+      try { await signin(String(fd.get('email')||''), String(fd.get('password')||'')); var n = nextFromHash(); location.hash = '#' + (n || '/dashboard'); }
+      catch(ex){ if(err){ err.textContent = ex.message || 'Could not sign in.'; err.classList.remove('hidden'); } }
+    }); }
+    if(s2 && !s2.dataset.bound){ s2.dataset.bound='1'; s2.addEventListener('submit', async function(e){
+      e.preventDefault(); var err = document.getElementById('signup-error'); if(err) err.classList.add('hidden');
+      var fd = new FormData(s2);
+      if(!fd.get('terms')){ if(err){ err.textContent='Please accept the Terms to continue.'; err.classList.remove('hidden'); } return; }
+      try { await signup(String(fd.get('email')||''), String(fd.get('password')||''), String(fd.get('name')||'')); var n = nextFromHash(); location.hash = '#' + (n || '/dashboard'); }
+      catch(ex){ if(err){ err.textContent = ex.message || 'Could not create account.'; err.classList.remove('hidden'); } }
+    }); }
+    if(so && !so.dataset.bound){ so.dataset.bound='1'; so.addEventListener('click', signout); }
+  }
+  window.AIB_AUTH = { user: user, signin: signin, signup: signup, signout: signout };
+  document.addEventListener('DOMContentLoaded', function(){ bindForms(); render(); });
+  window.addEventListener('hashchange', function(){ bindForms(); render(); });
+  bindForms(); render();
+})();
+</script>
+<script data-file="data.js">
+(function(){
+  var cfg = window.__AIB_AUTH__ || {};
+  var SITE = cfg.namespace || 'site';
+  var BASE = (cfg.supabaseUrl || '') + '/rest/v1/site_entries';
+  function session(){ try { return JSON.parse(localStorage.getItem('aib_session_' + SITE) || 'null'); } catch(e){ return null; } }
+  function authHeaders(extra){
+    var s = session();
+    var h = { 'apikey': cfg.supabaseAnonKey || '', 'Content-Type': 'application/json' };
+    if(s && s.access_token){ h.Authorization = 'Bearer ' + s.access_token; }
+    if(extra){ for(var k in extra){ h[k] = extra[k]; } }
+    return h;
+  }
+  async function api(path, opts){
+    var res = await fetch(BASE + (path||''), Object.assign({ headers: authHeaders((opts||{}).headers) }, opts || {}));
+    if(res.status === 204) return null;
+    var txt = await res.text();
+    var j = txt ? (function(){ try { return JSON.parse(txt); } catch(e){ return null; } })() : null;
+    if(!res.ok){ throw new Error((j && (j.message || j.error_description)) || ('HTTP ' + res.status)); }
+    return j;
+  }
+  function fmtDate(iso){ try { return new Date(iso).toLocaleDateString(); } catch(e){ return ''; } }
+  function escapeHtml(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+  var cache = [];
+
+  async function loadEntries(){
+    var u = window.AIB_AUTH && window.AIB_AUTH.user(); if(!u) return [];
+    try {
+      var rows = await api('?select=*&site=eq.' + encodeURIComponent(SITE) + '&order=created_at.desc&limit=500');
+      cache = Array.isArray(rows) ? rows : [];
+    } catch(e){ console.warn('[dashboard] load failed', e); cache = []; }
+    return cache;
+  }
+
+  async function createEntry(payload){
+    var u = window.AIB_AUTH && window.AIB_AUTH.user(); if(!u) throw new Error('Not signed in');
+    var body = { user_id: u.id, site: SITE, kind: 'customer', data: payload };
+    var r = await api('', { method:'POST', headers:{ 'Prefer':'return=representation' }, body: JSON.stringify(body) });
+    if(r && r[0]) cache.unshift(r[0]);
+    return r && r[0];
+  }
+  async function deleteEntry(id){
+    await api('?id=eq.' + encodeURIComponent(id), { method:'DELETE' });
+    cache = cache.filter(function(x){ return x.id !== id; });
+  }
+
+  function renderOverview(){
+    var u = window.AIB_AUTH && window.AIB_AUTH.user();
+    var label = document.getElementById('d-user'); if(label) label.textContent = u ? (u.email || 'operator') : 'operator';
+    var rows = cache.slice();
+    var byKpi = { count: rows.length, active: rows.filter(function(r){return r.status==='active';}).length };
+    var weekAgo = Date.now() - 7*86400000;
+    byKpi.week = rows.filter(function(r){ return new Date(r.created_at).getTime() >= weekAgo; }).length;
+    var first = u && u.created_at ? new Date(u.created_at) : null;
+    byKpi.age = first ? Math.max(1, Math.round((Date.now() - first.getTime())/86400000)) + 'd' : '—';
+    document.querySelectorAll('#d-kpis [data-kpi]').forEach(function(el){ var k = el.dataset.kpi; if(byKpi[k]!=null) el.textContent = byKpi[k]; });
+    var deltaEl = document.querySelector('#d-kpis [data-kpi="delta"]');
+    if(deltaEl) deltaEl.textContent = byKpi.week > 0 ? '+' + byKpi.week + ' this week' : 'no change';
+
+    // Sparkline: bucket by day, last 30 days
+    var days = 30, buckets = new Array(days).fill(0);
+    var now = Date.now();
+    rows.forEach(function(r){ var d = Math.floor((now - new Date(r.created_at).getTime())/86400000); if(d>=0 && d<days) buckets[days-1-d]++; });
+    var max = Math.max(1, Math.max.apply(null, buckets));
+    var pts = buckets.map(function(v,i){ var x = (i/(days-1))*600; var y = 180 - (v/max)*160; return x.toFixed(1)+','+y.toFixed(1); });
+    var line = 'M' + pts.join(' L');
+    var area = line + ' L600,200 L0,200 Z';
+    var L = document.getElementById('d-chart-line'); if(L) L.setAttribute('d', line);
+    var A = document.getElementById('d-chart-area'); if(A) A.setAttribute('d', area);
+    var meta = document.getElementById('d-trend-meta'); if(meta) meta.textContent = rows.length + ' total · peak ' + max + '/day';
+
+    var recent = document.getElementById('d-recent');
+    if(recent){
+      if(!rows.length){ recent.innerHTML = '<li class="muted">No entries yet. Add one in <a href="#/dashboard/customers">Customers</a>.</li>'; }
+      else { recent.innerHTML = rows.slice(0,5).map(function(r){ var d = r.data || {}; return '<li><strong>'+escapeHtml(d.name||'Untitled')+'</strong><span class="muted"> · '+escapeHtml(d.email||'')+' · '+fmtDate(r.created_at)+'</span></li>'; }).join(''); }
+    }
+
+    var tbody = document.getElementById('d-overview-rows');
+    if(tbody){
+      if(!rows.length){ tbody.innerHTML = '<tr><td colspan="99" class="muted">No data yet — add your first entry.</td></tr>'; }
+      else {
+        tbody.innerHTML = rows.slice(0,8).map(function(r){
+          var d = r.data || {};
+          return '<tr><td>'+escapeHtml(d.name||'—')+'</td><td>'+escapeHtml(d.email||'—')+'</td><td>'+escapeHtml(r.status||'active')+'</td><td>'+fmtDate(r.created_at)+'</td><td></td></tr>';
+        }).join('');
+      }
+    }
+  }
+
+  function renderList(){
+    var cnt = document.getElementById('d-count'); if(cnt) cnt.textContent = cache.length;
+    var tbody = document.getElementById('d-entry-rows'); if(!tbody) return;
+    var q = (document.getElementById('d-list-search')||{}).value || '';
+    q = q.toLowerCase();
+    var rows = cache.filter(function(r){ if(!q) return true; var d = r.data||{}; return (d.name||'').toLowerCase().indexOf(q)>=0 || (d.email||'').toLowerCase().indexOf(q)>=0; });
+    if(!rows.length){ tbody.innerHTML = '<tr><td colspan="6" class="muted">No entries match.</td></tr>'; return; }
+    tbody.innerHTML = rows.map(function(r){
+      var d = r.data || {};
+      return '<tr data-id="'+escapeHtml(r.id)+'"><td>'+escapeHtml(d.name||'—')+'</td><td>'+escapeHtml(d.email||'')+'</td><td>'+escapeHtml(d.notes||'')+'</td><td>'+escapeHtml(r.status||'active')+'</td><td>'+fmtDate(r.created_at)+'</td><td><button type="button" class="btn-secondary btn-sm d-del">Delete</button></td></tr>';
+    }).join('');
+  }
+
+  function renderBilling(){
+    var u = window.AIB_AUTH && window.AIB_AUTH.user(); if(!u) return;
+    var em = document.getElementById('b-email'); if(em) em.textContent = u.email || '—';
+    var since = document.getElementById('b-since'); if(since && u.created_at) since.textContent = new Date(u.created_at).toLocaleDateString();
+  }
+
+  function renderSettings(){
+    var u = window.AIB_AUTH && window.AIB_AUTH.user(); if(!u) return;
+    var em = document.getElementById('settings-email'); if(em) em.value = u.email || '';
+    var nm = document.getElementById('settings-name'); if(nm && !nm.value) nm.value = (u.user_metadata && u.user_metadata.full_name) || (u.email||'').split('@')[0] || '';
+  }
+
+  function toCsv(){
+    var head = ['name','email','notes','status','created_at'];
+    var rows = cache.map(function(r){ var d=r.data||{}; return [d.name||'', d.email||'', d.notes||'', r.status||'', r.created_at||'']; });
+    var esc = function(v){ v = String(v==null?'':v); return /[,"\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; };
+    return [head.join(',')].concat(rows.map(function(r){return r.map(esc).join(',');})).join('\n');
+  }
+
+  async function refresh(){
+    await loadEntries();
+    renderOverview(); renderList(); renderBilling(); renderSettings();
+  }
+
+  document.addEventListener('submit', function(e){
+    if(e.target && e.target.id === 'd-entry-form'){
+      e.preventDefault();
+      var f = e.target; var fd = new FormData(f);
+      var err = document.getElementById('d-entry-error'); if(err) err.classList.add('hidden');
+      createEntry({ name: String(fd.get('name')||'').trim(), email: String(fd.get('email')||'').trim(), notes: String(fd.get('notes')||'').trim() })
+        .then(function(){ f.reset(); renderList(); renderOverview(); })
+        .catch(function(ex){ if(err){ err.textContent = ex.message || 'Could not save.'; err.classList.remove('hidden'); } });
+    }
+    if(e.target && e.target.id === 'd-profile-form'){
+      e.preventDefault();
+      var s = document.getElementById('d-profile-status'); if(s) s.classList.remove('hidden');
+      setTimeout(function(){ if(s) s.classList.add('hidden'); }, 1500);
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    var del = e.target && e.target.closest && e.target.closest('.d-del');
+    if(del){ var tr = del.closest('tr'); var id = tr && tr.dataset.id; if(!id) return; if(!confirm('Delete this entry?')) return; deleteEntry(id).then(function(){ renderList(); renderOverview(); }); }
+    if(e.target && e.target.id === 'd-export'){ var csv = toCsv(); var blob = new Blob([csv], {type:'text/csv'}); var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = SITE + '-entries.csv'; a.click(); }
+    if(e.target && e.target.id === 'd-signout'){ if(window.AIB_AUTH) window.AIB_AUTH.signout(); }
+  });
+
+  document.addEventListener('input', function(e){ if(e.target && (e.target.id === 'd-list-search' || e.target.id === 'd-search')) renderList(); });
+
+  document.addEventListener('aib-auth-change', refresh);
+  window.addEventListener('hashchange', function(){ var h = (location.hash||''); if(h.indexOf('#/dashboard') === 0) refresh(); });
+  if((location.hash||'').indexOf('#/dashboard') === 0) refresh();
+  document.addEventListener('DOMContentLoaded', function(){ if((location.hash||'').indexOf('#/dashboard') === 0) refresh(); });
+})();
+</script>
+<script>
+(function(){
+  var ENDPOINT = "/api/public/paybridge/checkout";
+  if(!ENDPOINT || ENDPOINT.indexOf("{{") === 0){ ENDPOINT = "/api/public/paybridge/checkout"; }
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest(".pb-checkout");
+    if(!btn) return; e.preventDefault();
+    if(btn.dataset.loading === "1") return;
+    if(btn.dataset.requiresAuth === "1" && !(window.AIB_AUTH && window.AIB_AUTH.user())){ location.hash = "#/signin?next=/checkout"; return; }
+    var label = btn.textContent; btn.dataset.loading = "1"; btn.disabled = true; btn.textContent = "Loading…";
+    var u = window.AIB_AUTH && window.AIB_AUTH.user();
+    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:parseInt(btn.dataset.amount,10),currency:btn.dataset.currency||"eur",description:btn.dataset.description||"Purchase",plan:btn.dataset.plan||"default",customer_email:u?u.email:undefined})}).then(function(r){return r.json();}).then(function(j){ if(j && j.url){ window.location.href = j.url; } else { btn.disabled=false; btn.textContent=label; btn.dataset.loading="0"; alert((j&&j.error)||"Could not start checkout."); } }).catch(function(){ btn.disabled=false; btn.textContent=label; btn.dataset.loading="0"; });
+  });
+})();
+</script>
+<script data-file="app.js">
+(function(){
+  var pages = Array.prototype.slice.call(document.querySelectorAll('[data-page]'));
+  var menu = document.getElementById('mobile-menu');
+  var toggle = document.getElementById('menu-toggle');
+  var PROTECTED = { 'dashboard':1,'dashboard/customers':1,'dashboard/billing':1,'dashboard/settings':1 };
+  function parse(){ var raw = (location.hash || '#/home').replace(/^#\/?/, '') || 'home'; var i = raw.indexOf('?'); if(i>=0){ raw = raw.slice(0,i); } return raw; }
+  function show(){
+    var target = parse();
+    if(PROTECTED[target] && !(window.AIB_AUTH && window.AIB_AUTH.user())){ location.hash = '#/signin?next=/'+target; return; }
+    if(!pages.some(function(p){return p.dataset.page === target;})) target = 'home';
+    pages.forEach(function(p){ p.classList.toggle('hidden', p.dataset.page !== target); });
+    var active = pages.find(function(p){return p.dataset.page === target;});
+    if(active && active.dataset.title) document.title = active.dataset.title;
+    document.querySelectorAll('a[data-nav]').forEach(function(a){ a.setAttribute('aria-current', a.getAttribute('href') === '#/' + target ? 'page' : 'false'); });
+    if(menu) menu.classList.add('hidden'); if(toggle) toggle.setAttribute('aria-expanded','false');
+    window.scrollTo({top:0,behavior:'smooth'});
+    gate();
+  }
+  window.addEventListener('hashchange', show);
+  if(toggle && menu){ toggle.addEventListener('click', function(){ var open = menu.classList.toggle('hidden') === false; toggle.setAttribute('aria-expanded', String(open)); }); }
+  var billing = document.getElementById('billing-toggle'); var yearly = false;
+  if(billing){ billing.addEventListener('click', function(){ yearly = !yearly; billing.textContent = yearly ? 'Show monthly pricing' : 'Show yearly (save 20%)'; document.querySelectorAll('.price').forEach(function(p){ p.firstChild.nodeValue = (yearly ? p.dataset.year : p.dataset.month) + ' €'; }); }); }
+  function gate(){
+    var terms = document.getElementById('terms-accept');
+    var age = document.getElementById('age-confirm');
+    var btn = document.getElementById('checkout-submit');
+    var notice = document.getElementById('auth-required-notice');
+    var signed = !!(window.AIB_AUTH && window.AIB_AUTH.user());
+    if(notice) notice.classList.toggle('hidden', signed);
+    if(btn) btn.disabled = !(signed && terms && terms.checked && age && age.checked);
+  }
+  document.addEventListener('change', function(e){ if(e.target && (e.target.id === 'terms-accept' || e.target.id === 'age-confirm')) gate(); });
+  document.addEventListener('aib-auth-change', function(){ gate(); show(); });
+  var contact = document.getElementById('contact-form');
+  if(contact){ contact.addEventListener('submit', function(e){ e.preventDefault(); var s = document.getElementById('contact-status'); if(s) s.classList.remove('hidden'); contact.reset(); }); }
+  show();
+})();
+</script>
+</body>
+</html>
